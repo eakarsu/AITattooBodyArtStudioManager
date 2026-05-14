@@ -13,6 +13,8 @@ const featureSections = [
       { icon: '\uD83D\uDCF8', title: 'Caption Generator', desc: 'Social media captions for portfolio posts', route: '/ai/generate-caption', countKey: 'ai' },
       { icon: '\uD83C\uDFAF', title: 'Style Matcher', desc: 'Match clients with the perfect artist', route: '/ai/match-style', countKey: 'ai' },
       { icon: '\uD83D\uDCAC', title: 'Message Drafter', desc: 'Professional booking & follow-up messages', route: '/ai/draft-message', countKey: 'ai' },
+      { icon: '🎨', title: 'Portfolio Style Classifier', desc: 'Auto-tag artist work by style and technique', route: '/ai/portfolio-classify', countKey: 'ai' },
+      { icon: '📈', title: 'Demand Forecast', desc: 'Predict peak hours and artist scheduling', route: '/ai/demand-forecast', countKey: 'ai' },
     ],
   },
   {

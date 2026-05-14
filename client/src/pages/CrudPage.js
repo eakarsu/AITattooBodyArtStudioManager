@@ -17,7 +17,8 @@ function CrudPage({ endpoint, title, columns, fields, formFields, icon }) {
     setLoading(true);
     try {
       const res = await api.get(`/${endpoint}`);
-      setData(Array.isArray(res.data) ? res.data : []);
+      // Handle both paginated { data, pagination } and flat array responses
+      setData(Array.isArray(res.data) ? res.data : (res.data?.data || []));
     } catch (err) {
       console.error(`Error fetching ${endpoint}:`, err);
     } finally {

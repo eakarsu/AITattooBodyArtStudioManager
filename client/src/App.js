@@ -20,6 +20,26 @@ import FlashPage from './pages/FlashPage';
 import AftercarePage from './pages/AftercarePage';
 import PricingPage from './pages/PricingPage';
 import AIPage from './pages/AIPage';
+import HealingTrackerPage from './pages/HealingTrackerPage';
+import ArtistPerformancePage from './pages/ArtistPerformancePage';
+import SmartBookingPage from './pages/SmartBookingPage';
+// === Batch 08 Gaps & Frontend Mounts ===
+import CfHealingOutcomePredictionByArtistStyleLocation from './pages/CfHealingOutcomePredictionByArtistStyleLocation'
+import CfPortfolioStyleClassificationAutoTaggingArtistWork from './pages/CfPortfolioStyleClassificationAutoTaggingArtistWork'
+import CfDemandForecastingToOptimizeArtistSchedulingFor from './pages/CfDemandForecastingToOptimizeArtistSchedulingFor'
+import CfInfectionRiskAssessmentFlaggingHighRiskProcedures from './pages/CfInfectionRiskAssessmentFlaggingHighRiskProcedures'
+import CfSocialProofAutomationGeneratingBeforeAfterPost from './pages/CfSocialProofAutomationGeneratingBeforeAfterPost'
+import CfOshaBloodbornePathogenComplianceDashboardWithAudit from './pages/CfOshaBloodbornePathogenComplianceDashboardWithAudit'
+import GapNoAiDrivenPortfolioStyleClassification from './pages/GapNoAiDrivenPortfolioStyleClassification'
+import GapNoDemandForecastingForPeakHours from './pages/GapNoDemandForecastingForPeakHours'
+import GapNoAiInfectionRiskScoring from './pages/GapNoAiInfectionRiskScoring'
+import GapNoIntegrationsWithPaymentProcessingSquareStripe from './pages/GapNoIntegrationsWithPaymentProcessingSquareStripe'
+import GapNoFormalHealthSafetyComplianceTrackingModule from './pages/GapNoFormalHealthSafetyComplianceTrackingModule'
+import GapNoPortfolioGalleryStorefrontForPublicViewing from './pages/GapNoPortfolioGalleryStorefrontForPublicViewing'
+import GapNoMultiLocationMultiStudioSupport from './pages/GapNoMultiLocationMultiStudioSupport'
+import GapNoWebhooksOrNotifications from './pages/GapNoWebhooksOrNotifications'
+import GapNoAuditLogging from './pages/GapNoAuditLogging'
+import GapNoSmsEmailReminderInfrastructure from './pages/GapNoSmsEmailReminderInfrastructure'
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -46,6 +66,9 @@ const pageTitles = {
   '/flash': 'Flash Designs',
   '/aftercare': 'Aftercare Tracking',
   '/pricing': 'Pricing Calculator',
+  '/healing': 'Healing Tracker',
+  '/artist-performance': 'Artist Performance',
+  '/smart-booking': 'Smart Booking',
   '/ai/generate-design': 'Flash Design Generator',
   '/ai/customize-consent': 'Consent Customizer',
   '/ai/personalize-aftercare': 'Aftercare Personalizer',
@@ -85,7 +108,27 @@ function AppLayout() {
           <Route path="/aftercare" element={<AftercarePage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/ai/:feature" element={<AIPage />} />
-        </Routes>
+          <Route path="/healing" element={<HealingTrackerPage />} />
+          <Route path="/artist-performance" element={<ArtistPerformancePage />} />
+          <Route path="/smart-booking" element={<SmartBookingPage />} />
+        {/* // === Batch 08 Gaps & Frontend Mounts === */}
+      <Route path="/cf-healing-outcome-prediction-by-artist-style-location-to" element={<ProtectedRoute><CfHealingOutcomePredictionByArtistStyleLocation /></ProtectedRoute>} />
+      <Route path="/cf-portfolio-style-classification-auto-tagging-artist-work" element={<ProtectedRoute><CfPortfolioStyleClassificationAutoTaggingArtistWork /></ProtectedRoute>} />
+      <Route path="/cf-demand-forecasting-to-optimize-artist-scheduling-for-peak" element={<ProtectedRoute><CfDemandForecastingToOptimizeArtistSchedulingFor /></ProtectedRoute>} />
+      <Route path="/cf-infection-risk-assessment-flagging-high-risk-procedures-for-extra" element={<ProtectedRoute><CfInfectionRiskAssessmentFlaggingHighRiskProcedures /></ProtectedRoute>} />
+      <Route path="/cf-social-proof-automation-generating-before-after-post-sequences" element={<ProtectedRoute><CfSocialProofAutomationGeneratingBeforeAfterPost /></ProtectedRoute>} />
+      <Route path="/cf-osha-bloodborne-pathogen-compliance-dashboard-with-audit-ready-logs" element={<ProtectedRoute><CfOshaBloodbornePathogenComplianceDashboardWithAudit /></ProtectedRoute>} />
+      <Route path="/gap-no-ai-driven-portfolio-style-classification" element={<ProtectedRoute><GapNoAiDrivenPortfolioStyleClassification /></ProtectedRoute>} />
+      <Route path="/gap-no-demand-forecasting-for-peak-hours" element={<ProtectedRoute><GapNoDemandForecastingForPeakHours /></ProtectedRoute>} />
+      <Route path="/gap-no-ai-infection-risk-scoring" element={<ProtectedRoute><GapNoAiInfectionRiskScoring /></ProtectedRoute>} />
+      <Route path="/gap-no-integrations-with-payment-processing-square-stripe" element={<ProtectedRoute><GapNoIntegrationsWithPaymentProcessingSquareStripe /></ProtectedRoute>} />
+      <Route path="/gap-no-formal-health-safety-compliance-tracking-module-blood-borne" element={<ProtectedRoute><GapNoFormalHealthSafetyComplianceTrackingModule /></ProtectedRoute>} />
+      <Route path="/gap-no-portfolio-gallery-storefront-for-public-viewing" element={<ProtectedRoute><GapNoPortfolioGalleryStorefrontForPublicViewing /></ProtectedRoute>} />
+      <Route path="/gap-no-multi-location-multi-studio-support" element={<ProtectedRoute><GapNoMultiLocationMultiStudioSupport /></ProtectedRoute>} />
+      <Route path="/gap-no-webhooks-or-notifications" element={<ProtectedRoute><GapNoWebhooksOrNotifications /></ProtectedRoute>} />
+      <Route path="/gap-no-audit-logging" element={<ProtectedRoute><GapNoAuditLogging /></ProtectedRoute>} />
+      <Route path="/gap-no-sms-email-reminder-infrastructure" element={<ProtectedRoute><GapNoSmsEmailReminderInfrastructure /></ProtectedRoute>} />
+      </Routes>
       </div>
     </div>
   );

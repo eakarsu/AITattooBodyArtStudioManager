@@ -5,6 +5,9 @@ const navSections = [
   {
     title: 'AI Features',
     links: [
+      { to: '/healing', icon: '\uD83E\uDE79', text: 'Healing Tracker' },
+      { to: '/artist-performance', icon: '\uD83D\uDCCA', text: 'Artist Performance' },
+      { to: '/smart-booking', icon: '\u26A1', text: 'Smart Booking' },
       { to: '/ai/generate-design', icon: '\uD83C\uDFA8', text: 'Flash Design Generator' },
       { to: '/ai/customize-consent', icon: '\uD83D\uDCCB', text: 'Consent Customizer' },
       { to: '/ai/personalize-aftercare', icon: '\uD83D\uDC8A', text: 'Aftercare Personalizer' },

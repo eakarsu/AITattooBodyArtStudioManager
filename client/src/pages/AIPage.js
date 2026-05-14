@@ -109,6 +109,33 @@ const AI_FEATURES = {
       { key: 'budget', label: 'Budget ($)', type: 'number', placeholder: '500' },
     ],
   },
+  'portfolio-classify': {
+    title: 'Portfolio Style Classifier',
+    icon: '🎨',
+    description: 'Auto-classify portfolio pieces by style, theme, and technique.',
+    fields: [
+      { key: 'artist_name', label: 'Artist Name', placeholder: 'Artist whose portfolio is being analyzed' },
+      { key: 'piece_descriptions', label: 'Piece Descriptions', type: 'textarea', placeholder: 'List portfolio pieces (one per line) — short descriptions OK' },
+      { key: 'image_urls', label: 'Image URLs (optional)', type: 'textarea', placeholder: 'Optional URLs, one per line' },
+    ],
+  },
+  'demand-forecast': {
+    title: 'Demand Forecast',
+    icon: '📈',
+    description: 'Forecast peak booking hours and recommend artist scheduling.',
+    fields: [
+      { key: 'horizon_days', label: 'Horizon (days)', type: 'number', placeholder: '14' },
+      { key: 'location', label: 'Location / Studio', placeholder: 'Studio name or city' },
+      { key: 'season', label: 'Season', type: 'select', options: [
+        { value: '', label: 'Auto-detect' },
+        { value: 'spring', label: 'Spring' },
+        { value: 'summer', label: 'Summer' },
+        { value: 'fall', label: 'Fall' },
+        { value: 'winter', label: 'Winter' },
+      ]},
+      { key: 'notes', label: 'Notes / Context', type: 'textarea', placeholder: 'Promotions, conventions, holidays, etc.' },
+    ],
+  },
   'draft-message': {
     title: 'Message Drafter',
     icon: '\uD83D\uDCAC',
