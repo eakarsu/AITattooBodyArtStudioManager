@@ -36,3 +36,17 @@ Pattern reused: `callOpenRouter` + `parseAIJson` + `saveAIResult` + `saveGenerat
 ## Apply pass 3 (frontend)
 
 LEFT-AS-IS. Frontend already wires all backend AI endpoints (including the apply-pass-2 additions) with JWT Bearer auth from `localStorage`. No FE changes needed; idempotence rule applied. See `_AUDIT/apply3_logs/ab3_99.md`.
+
+## Apply pass 6 (close-out)
+
+Items implemented:
+1. `POST /api/ai/healing-outcome-prediction` — structured healing outcome prediction over tattoo + client + aftercare plan.
+2. `POST /api/ai/infection-risk-assessment` — structured infection risk + urgency triage over symptoms / history / aftercare.
+
+File: `server/routes/ai.js` (append-only). Reused `callOpenRouter` + `parseAIJson` + `saveAIResult` + `saveGeneration` + `aiRateLimiter` house style. No new deps, no schema changes, no `.env` edits, no FE edits.
+
+Syntax: PASS (`node --check server/routes/ai.js`).
+
+Remaining backlog:
+- **NEEDS-CREDS** Square / Stripe integration.
+- **NEEDS-PRODUCT-DECISION** Multi-location data model, OSHA compliance schema.

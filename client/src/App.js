@@ -23,6 +23,11 @@ import AIPage from './pages/AIPage';
 import HealingTrackerPage from './pages/HealingTrackerPage';
 import ArtistPerformancePage from './pages/ArtistPerformancePage';
 import SmartBookingPage from './pages/SmartBookingPage';
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
+
 // === Batch 08 Gaps & Frontend Mounts ===
 import CfHealingOutcomePredictionByArtistStyleLocation from './pages/CfHealingOutcomePredictionByArtistStyleLocation'
 import CfPortfolioStyleClassificationAutoTaggingArtistWork from './pages/CfPortfolioStyleClassificationAutoTaggingArtistWork'
@@ -91,6 +96,10 @@ function AppLayout() {
       <Header title={title} sidebarCollapsed={sidebarCollapsed} />
       <div className={`main-content${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
         <Routes>
+        <Route path="/insights/timeline" element={<ProtectedRoute><TimelineView /></ProtectedRoute>} />
+        <Route path="/codex/custom-viz" element={<ProtectedRoute><CodexCustomVizFeature /></ProtectedRoute>} />
+        <Route path="/codex/operations" element={<ProtectedRoute><CodexOperationsFeature /></ProtectedRoute>} />
+
           <Route path="/" element={<Dashboard />} />
           <Route path="/artists" element={<ArtistsPage />} />
           <Route path="/appointments" element={<AppointmentsPage />} />

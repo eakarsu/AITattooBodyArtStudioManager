@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const { authenticateToken: auth } = require('../middleware/auth');
 const pool = require('../db');
 
 // OSHA/bloodborne-pathogen compliance dashboard with audit-ready logs

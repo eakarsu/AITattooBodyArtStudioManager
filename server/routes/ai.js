@@ -5,7 +5,7 @@ const rateLimit = require('express-rate-limit');
 const pool = require('../db');
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const MODEL = 'anthropic/claude-3-5-sonnet-20241022';
+const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5';
 
 // Rate limiter: 20 AI calls per hour per user
 const aiRateLimiter = rateLimit({
@@ -617,6 +617,78 @@ Return JSON:
     const parsed = parseAIJson(text) || { raw: text };
     await saveAIResult(req.user?.id, 'infection-risk', { client_id, service_type, days_since_session }, parsed);
     await saveGeneration('infection-risk', prompt, text, MODEL);
+    res.json({ assessment: parsed });
+  } catch (err) {
+    if (err.code === 'LLM_UNAVAILABLE') {
+      return res.status(503).json({ error: 'AI service unavailable: OPENROUTER_API_KEY not configured.' });
+    }
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/ai/healing-outcome-prediction — structured healing outcome prediction (tattoo + client + aftercare)
+router.post('/healing-outcome-prediction', aiRateLimiter, async (req, res) => {
+  try {
+    const { tattoo = {}, client = {}, aftercare_plan } = req.body || {};
+
+    const systemPrompt = 'You are a tattoo healing prognosis specialist. Use evidence-based reasoning. Always respond with valid JSON only.';
+    const prompt = `Predict the healing outcome for the following tattoo session.
+
+Tattoo: ${JSON.stringify(tattoo)}
+
+Client: ${JSON.stringify(client)}
+
+Aftercare plan: ${JSON.stringify(aftercare_plan || null)}
+
+Return JSON exactly matching:
+{
+  "predicted_healing_days": <number>,
+  "complications_risk": "low|medium|high",
+  "watchpoints": ["..."],
+  "aftercare_recommendations": ["..."],
+  "followup_schedule": [{"day": <number>, "check": "..."}]
+}`;
+
+    const text = await callOpenRouter(prompt, systemPrompt);
+    const parsed = parseAIJson(text) || { raw: text };
+    await saveAIResult(req.user?.id, 'healing-outcome-prediction', { tattoo, client, aftercare_plan }, parsed);
+    await saveGeneration('healing-outcome-prediction', prompt, text, MODEL);
+    res.json({ prediction: parsed });
+  } catch (err) {
+    if (err.code === 'LLM_UNAVAILABLE') {
+      return res.status(503).json({ error: 'AI service unavailable: OPENROUTER_API_KEY not configured.' });
+    }
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/ai/infection-risk-assessment — structured infection risk assessment with urgency triage
+router.post('/infection-risk-assessment', aiRateLimiter, async (req, res) => {
+  try {
+    const { symptoms, client_history, site_image_description, days_since_session, current_aftercare } = req.body || {};
+
+    const systemPrompt = 'You are an infection-control specialist for tattoo / body-art studios. Always respond with valid JSON only. Output is decision-support only and does not replace medical advice.';
+    const prompt = `Assess infection risk and recommend an urgency tier for the following case.
+
+Symptoms: ${JSON.stringify(symptoms || [])}
+Client history: ${JSON.stringify(client_history || null)}
+Site image description: ${JSON.stringify(site_image_description || null)}
+Days since session: ${JSON.stringify(days_since_session ?? null)}
+Current aftercare: ${JSON.stringify(current_aftercare || null)}
+
+Return JSON exactly matching:
+{
+  "risk_level": "low|moderate|elevated|high|urgent",
+  "urgency": "self_care|contact_studio|see_doctor|emergency",
+  "indicators_present": ["..."],
+  "recommended_immediate_actions": ["..."],
+  "escalation_threshold": "..."
+}`;
+
+    const text = await callOpenRouter(prompt, systemPrompt);
+    const parsed = parseAIJson(text) || { raw: text };
+    await saveAIResult(req.user?.id, 'infection-risk-assessment', { symptoms, days_since_session }, parsed);
+    await saveGeneration('infection-risk-assessment', prompt, text, MODEL);
     res.json({ assessment: parsed });
   } catch (err) {
     if (err.code === 'LLM_UNAVAILABLE') {
