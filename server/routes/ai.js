@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
-const rateLimit = require('express-rate-limit');
+const { rateLimit, ipKeyGenerator } = require('express-rate-limit');
 const pool = require('../db');
 
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5';
+const OPENROUTER_BASE_URL = (process.env.OPENROUTER_BASE_URL || '').replace(/\/$/, '');
+const OPENROUTER_URL = `${OPENROUTER_BASE_URL}/chat/completions`;
+const MODEL = process.env.OPENROUTER_MODEL || '';
 
 // Rate limiter: 20 AI calls per hour per user
 const aiRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 20,
-  keyGenerator: (req) => req.user ? 'user:' + req.user.id : req.ip,
+  keyGenerator: (req) => req.user ? 'user:' + req.user.id : ipKeyGenerator(req.ip),
   message: { error: 'Too many AI requests. Limit: 20 per hour.' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -44,6 +45,10 @@ async function callOpenRouter(prompt, systemPrompt) {
     e.code = 'LLM_UNAVAILABLE';
     throw e;
   }
+  if (!MODEL) throw new Error('OPENROUTER_MODEL is required');
+  if (OPENROUTER_BASE_URL !== 'https://openrouter.ai/api/v1') {
+    throw new Error('OPENROUTER_BASE_URL must be https://openrouter.ai/api/v1');
+  }
   const messages = [];
   if (systemPrompt) messages.push({ role: 'system', content: systemPrompt });
   messages.push({ role: 'user', content: prompt });
@@ -69,39 +74,24 @@ async function callOpenRouter(prompt, systemPrompt) {
   }
 
   const data = await response.json();
-  return data.choices?.[0]?.message?.content || 'No response generated';
+  if (data.error) throw new Error(data.error.message || 'OpenRouter API error');
+  const content = data.choices?.[0]?.message?.content || '';
+  if (!content.trim()) throw new Error('OpenRouter returned an empty response');
+  return content;
 }
 
 async function saveAIResult(userId, endpoint, inputData, result) {
-  try {
-    await pool.query(
-      `CREATE TABLE IF NOT EXISTS ai_results (
-        id SERIAL PRIMARY KEY,
-        user_id INTEGER,
-        endpoint VARCHAR(100),
-        input_data JSONB,
-        result JSONB,
-        created_at TIMESTAMP DEFAULT NOW()
-      )`,
-    );
-    await pool.query(
-      'INSERT INTO ai_results (user_id, endpoint, input_data, result) VALUES ($1, $2, $3, $4)',
-      [userId, endpoint, JSON.stringify(inputData), JSON.stringify(result)],
-    );
-  } catch (err) {
-    console.error('Error saving AI result:', err);
-  }
+  await pool.query(
+    'INSERT INTO ai_results (user_id, endpoint, input_data, result) VALUES ($1, $2, $3, $4)',
+    [userId, endpoint, JSON.stringify(inputData), JSON.stringify(result)],
+  );
 }
 
 async function saveGeneration(feature, prompt, response, model) {
-  try {
-    await pool.query(
-      'INSERT INTO ai_generations (feature, prompt, response, model) VALUES ($1, $2, $3, $4)',
-      [feature, prompt, response, model || MODEL],
-    );
-  } catch (err) {
-    console.error('Error saving AI generation:', err);
-  }
+  await pool.query(
+    'INSERT INTO ai_generations (feature, prompt, response, model) VALUES ($1, $2, $3, $4)',
+    [feature, prompt, response, model || MODEL],
+  );
 }
 
 // POST /api/ai/generate-design

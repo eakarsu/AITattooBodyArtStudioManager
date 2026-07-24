@@ -6,6 +6,10 @@ if [[ ! -f "$project_dir/.env" ]]; then
   echo "Missing $project_dir/.env; copy .env.example and provide real values." >&2
   exit 1
 fi
+set -a
+# shellcheck disable=SC1091
+source "$project_dir/.env"
+set +a
 for dependency_dir in "$project_dir/server/node_modules" "$project_dir/client/node_modules"; do
   if [[ ! -d "$dependency_dir" ]]; then
     echo "Missing $dependency_dir; install dependencies explicitly before starting." >&2
@@ -13,9 +17,9 @@ for dependency_dir in "$project_dir/server/node_modules" "$project_dir/client/no
   fi
 done
 
-(cd "$project_dir/server" && npm start) &
+(cd "$project_dir/server" && SERVER_PORT="${SERVER_PORT:-${BACKEND_PORT:-4000}}" npm start) &
 backend_pid=$!
-(cd "$project_dir/client" && npm start) &
+(cd "$project_dir/client" && PORT="${FRONTEND_PORT:-3000}" BROWSER=none npm start) &
 frontend_pid=$!
 
 cleanup() {

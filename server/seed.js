@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'production' || process.env.ALLOW_DEMO_SEED !== 'tr
 }
 const demoPassword = String(process.env.DEMO_PASSWORD || '');
 if (demoPassword.length < 12) throw new Error('DEMO_PASSWORD must contain at least 12 characters.');
+const demoEmail = String(process.env.DEMO_EMAIL || '');
+if (!demoEmail.includes('@')) throw new Error('DEMO_EMAIL must contain a valid address.');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -271,10 +273,10 @@ async function seed() {
     const passwordHash = await bcrypt.hash(demoPassword, 12);
     await client.query(`
       INSERT INTO users (email, password_hash, name, role) VALUES
-      ('admin@tattoo.studio', $1, 'Studio Admin', 'admin'),
+      ($2, $1, 'Studio Admin', 'admin'),
       ('manager@tattoo.studio', $1, 'Floor Manager', 'manager'),
       ('front@tattoo.studio', $1, 'Front Desk', 'staff')
-    `, [passwordHash]);
+    `, [passwordHash, demoEmail]);
 
     // Seed artists (15)
     await client.query(`

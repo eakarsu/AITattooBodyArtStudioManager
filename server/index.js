@@ -15,7 +15,7 @@ const PORT = process.env.SERVER_PORT || 4000;
 const allowedOrigins = String(process.env.CORS_ORIGINS || process.env.CLIENT_URL || 'http://localhost:3000')
   .split(',').map((value) => value.trim()).filter(Boolean);
 const providerPrefixes = [
-  '/api/ai', '/api/appointments', '/api/performance',
+  '/api/appointments', '/api/performance',
   '/api/healing-outcome-prediction', '/api/portfolio-style-classification',
   '/api/demand-forecasting', '/api/infection-risk-assessment',
   '/api/social-proof-automation', '/api/osha-compliance-dashboard', '/api/gap-',
@@ -58,12 +58,12 @@ const protectedRoutes = [
   ['/api/healing', './routes/healing'],
 ];
 for (const [routePath, modulePath] of protectedRoutes) app.use(routePath, require(modulePath));
+app.use('/api/ai', require('./routes/ai'));
 
 if (process.env.ENABLE_LEGACY_PROVIDER_ROUTES === 'true') {
   const legacyRoutes = [
     ['/api/appointments', './routes/appointments'],
     ['/api/performance', './routes/performance'],
-    ['/api/ai', './routes/ai'],
     ['/api/healing-outcome-prediction', './routes/healingOutcomePrediction'],
     ['/api/portfolio-style-classification', './routes/portfolioStyleClassification'],
     ['/api/demand-forecasting', './routes/demandForecasting'],
