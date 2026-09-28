@@ -76,7 +76,7 @@ function LoginPage() {
               className="btn btn-secondary btn-block"
               onClick={handleQuickLogin}
             >
-              Quick Login (Demo)
+              Auto Fill Demo Credentials
             </button>
           </div>
         </form>
