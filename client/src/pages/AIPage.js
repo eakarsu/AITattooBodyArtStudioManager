@@ -1,3 +1,6 @@
+import AIFieldPresets, { completeExample } from './AIFieldPresets';
+import AIResultView from './AIResultView';
+import useCancelableAI from './useCancelableAI';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../utils/api';
@@ -164,9 +167,10 @@ function AIPage() {
   const { feature } = useParams();
   const config = AI_FEATURES[feature];
   const [formData, setFormData] = useState({});
-  const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const aiRequest = useCancelableAI();
+  const { result: response, setResult: setResponse, loading, error, setError: setError } = aiRequest;
+
+
 
   if (!config) {
     return (
@@ -180,23 +184,7 @@ function AIPage() {
     );
   }
 
-  const handleGenerate = async () => {
-    setLoading(true);
-    setError('');
-    setResponse(null);
-    try {
-      const res = await api.post(`/ai/${feature}`, formData);
-      setResponse({
-        ...res.data,
-        timestamp: new Date().toISOString(),
-        model: 'AI Assistant',
-      });
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleGenerate = async (event) => { event?.preventDefault?.(); return aiRequest.run(async (options) => (await api.post(`/ai/${feature}`, formData, options)).data); };
 
   const handleRegenerate = () => {
     handleGenerate();
@@ -216,6 +204,9 @@ function AIPage() {
           <span className="badge badge-ai">{'\u2728'} AI Powered</span>
         </div>
         <div className="ai-section-body">
+          <AIFieldPresets fields={config.fields} samples={[]} context={config.title} disabled={loading} onFill={(sample, index) => { setFormData(completeExample(config.fields, sample, index, config.title, formData)); aiRequest.setResult(null); aiRequest.setError(null); }} />
+          {aiRequest.notice && <div className="sr-notice" role="status">{aiRequest.notice}</div>}
+
           <p style={{ color: '#b0b0b0', marginBottom: '24px', fontSize: '0.92rem' }}>
             {config.description}
           </p>
@@ -274,6 +265,7 @@ function AIPage() {
                 <>{'\u2728'} Generate</>
               )}
             </button>
+          {loading && <button type="button" className="btn btn-secondary" onClick={aiRequest.cancel}>Cancel</button>}
           </div>
 
           {/* AI Output */}
@@ -286,7 +278,7 @@ function AIPage() {
             </div>
           )}
 
-          <AIOutput response={response} feature={feature} onRegenerate={handleRegenerate} />
+          <AIResultView result={response} loading={loading} error={error} title={config.title} />
         </div>
       </div>
     </div>

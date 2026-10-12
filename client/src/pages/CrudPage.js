@@ -133,7 +133,7 @@ function CrudPage({ endpoint, title, columns, fields, formFields, icon }) {
             onDelete={() => handleDelete(selected)}
           />
         )}
-      </Modal>
+      <div className="sr-actions"><button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancel</button></div></Modal>
 
       {/* Create / Edit Modal */}
       <Modal

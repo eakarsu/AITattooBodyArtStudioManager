@@ -1,3 +1,4 @@
+import AIReportLibrary from "./AIReportLibrary";
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -87,7 +88,7 @@ function Sidebar({ collapsed, onToggle }) {
           </div>
         ))}
       </nav>
-    </aside>
+    <AIReportLibrary /></aside>
   );
 }
 

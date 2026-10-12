@@ -1,0 +1,114 @@
+[
+  {
+    "name": "CfDemandForecastingToOptimizeArtistSchedulingFor",
+    "id": "cf-demand-forecasting-to-optimize-artist-scheduling-for-peak/history",
+    "title": "Demand forecasting to optimize artist scheduling for peak hours",
+    "description": "Prepare a professional advisory report for demand forecasting to optimize artist scheduling for peak hours using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfHealingOutcomePredictionByArtistStyleLocation",
+    "id": "cf-healing-outcome-prediction-by-artist-style-location-to/history",
+    "title": "Healing outcome prediction by artist/style/location to identify best practices",
+    "description": "Prepare a professional advisory report for healing outcome prediction by artist/style/location to identify best practices using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfInfectionRiskAssessmentFlaggingHighRiskProcedures",
+    "id": "cf-infection-risk-assessment-flagging-high-risk-procedures-for-extra/history",
+    "title": "Infection risk assessment flagging high-risk procedures for extra aftercare",
+    "description": "Prepare a professional advisory report for infection risk assessment flagging high-risk procedures for extra aftercare using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfOshaBloodbornePathogenComplianceDashboardWithAudit",
+    "id": "cf-osha-bloodborne-pathogen-compliance-dashboard-with-audit-ready-logs/history",
+    "title": "OSHA/bloodborne-pathogen compliance dashboard with audit-ready logs",
+    "description": "Prepare a professional advisory report for osha/bloodborne-pathogen compliance dashboard with audit-ready logs using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfPortfolioStyleClassificationAutoTaggingArtistWork",
+    "id": "cf-portfolio-style-classification-auto-tagging-artist-work/history",
+    "title": "Portfolio style classification auto-tagging artist work",
+    "description": "Prepare a professional advisory report for portfolio style classification auto-tagging artist work using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "CfSocialProofAutomationGeneratingBeforeAfterPost",
+    "id": "cf-social-proof-automation-generating-before-after-post-sequences/history",
+    "title": "Social proof automation generating before/after post sequences",
+    "description": "Prepare a professional advisory report for social proof automation generating before/after post sequences using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAiDrivenPortfolioStyleClassification",
+    "id": "gap-no-ai-driven-portfolio-style-classification/history",
+    "title": "No AI-driven portfolio style classification",
+    "description": "Prepare a professional advisory report for no ai-driven portfolio style classification using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAiInfectionRiskScoring",
+    "id": "gap-no-ai-infection-risk-scoring/history",
+    "title": "No AI infection-risk scoring",
+    "description": "Prepare a professional advisory report for no ai infection-risk scoring using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoAuditLogging",
+    "id": "gap-no-audit-logging/history",
+    "title": "No audit logging",
+    "description": "Prepare a professional advisory report for no audit logging using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoDemandForecastingForPeakHours",
+    "id": "gap-no-demand-forecasting-for-peak-hours/history",
+    "title": "No demand forecasting for peak hours",
+    "description": "Prepare a professional advisory report for no demand forecasting for peak hours using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoFormalHealthSafetyComplianceTrackingModule",
+    "id": "gap-no-formal-health-safety-compliance-tracking-module-blood-borne/history",
+    "title": "No formal health/safety compliance tracking module (blood-borne pathogens, OSHA)",
+    "description": "Prepare a professional advisory report for no formal health/safety compliance tracking module (blood-borne pathogens, osha) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoIntegrationsWithPaymentProcessingSquareStripe",
+    "id": "gap-no-integrations-with-payment-processing-square-stripe/history",
+    "title": "No integrations with payment processing (Square, Stripe)",
+    "description": "Prepare a professional advisory report for no integrations with payment processing (square, stripe) using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoMultiLocationMultiStudioSupport",
+    "id": "gap-no-multi-location-multi-studio-support/history",
+    "title": "No multi-location/multi-studio support",
+    "description": "Prepare a professional advisory report for no multi-location/multi-studio support using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoPortfolioGalleryStorefrontForPublicViewing",
+    "id": "gap-no-portfolio-gallery-storefront-for-public-viewing/history",
+    "title": "No portfolio gallery/storefront for public viewing",
+    "description": "Prepare a professional advisory report for no portfolio gallery/storefront for public viewing using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoSmsEmailReminderInfrastructure",
+    "id": "gap-no-sms-email-reminder-infrastructure/history",
+    "title": "No SMS/email reminder infrastructure",
+    "description": "Prepare a professional advisory report for no sms/email reminder infrastructure using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  },
+  {
+    "name": "GapNoWebhooksOrNotifications",
+    "id": "gap-no-webhooks-or-notifications/history",
+    "title": "No webhooks or notifications",
+    "description": "Prepare a professional advisory report for no webhooks or notifications using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": []
+  }
+]
