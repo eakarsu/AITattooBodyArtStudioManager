@@ -5,6 +5,8 @@ const pool = require('../db');
 // GET /api/clients
 router.get('/', async (req, res) => {
   try {
+    const q=String(req.query.search||'').trim();
+    if(q){ const r=await pool.query('SELECT * FROM clients WHERE name ILIKE $1 OR email ILIKE $1 OR phone ILIKE $1 ORDER BY created_at DESC',['%'+q+'%']); return res.json(r.rows); }
     const result = await pool.query('SELECT * FROM clients ORDER BY created_at DESC');
     res.json(result.rows);
   } catch (err) {
